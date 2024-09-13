@@ -60,6 +60,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Generate bindings for Rust
     bindgen::Builder::default()
         .header(out_header_path.to_str().ok_or("Invalid header path")?)
+        .clang_args(&[
+            "--target=x86_64-pc-windows-gnu",
+            "--sysroot=C:\\Users\\xxxxL123\\x86_64-13.2.0-release-win32-seh-ucrt-rt_v11-rev0\\mingw64",
+        ])
         .generate()
         .map_err(|_| "Unable to generate bindings")?
         .write_to_file(out_dir.join("bindings.rs"))?;
